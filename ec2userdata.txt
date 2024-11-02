@@ -1,0 +1,11 @@
+#!/bin/sh
+export AWS_DEFAULT_REGION=eu-central-1
+sudo yum update -y
+sudo yum install git -y
+sudo yum install python -y
+git clone https://github.com/552eden/flask-playground
+cd flask-playground/
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+flask run --debug --host=0.0.0.0 --port=5000
