@@ -6,13 +6,10 @@ import datetime
 import json, os, signal
 
 
-from dotenv import load_dotenv
-load_dotenv()  # This loads the variables from .env
-
 app = Flask(__name__)
 
 # AWS DynamoDB Setup
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='eu-central-1')
 table = dynamodb.Table('falsk_test')
 
 @app.route('/')
