@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import boto3
 from boto3.dynamodb.conditions import Key
 import uuid
 import datetime
+import json, os, signal
+
 
 from dotenv import load_dotenv
 load_dotenv()  # This loads the variables from .env
@@ -58,6 +60,10 @@ def create():
     return render_template('create.html')
 
 # Add more routes for update and delete
+@app.route('/stopServer', methods=['GET'])
+def stopServer():
+    os.kill(os.getpid(), signal.SIGINT)
+    return jsonify({ "success": True, "message": "Server is shutting down..." })
 
 if __name__ == '__main__':
     app.run(debug=True)
