@@ -68,7 +68,9 @@ def stopServer():
 def gitPull():
     os.chmod('./gitpull.sh', 0o755)
     rc = call("./gitpull.sh")
-    return jsonify({ "success": True, "message": "Pulled from Git" })
-
+    if rc==0:
+        return jsonify({ "success": True, "message": "Pulled from Git" })
+    else:
+        return jsonify({ "success": False, "message": "Error. return code:" + rc })
 if __name__ == '__main__':
     app.run(debug=True)
