@@ -1,3 +1,4 @@
+#!/bin/sh
 curl localhost:5000/stopServer
 cd /flask-playground/
 git config --global --add safe.directory /flask-playground

@@ -4,6 +4,8 @@ from boto3.dynamodb.conditions import Key
 import uuid
 import datetime
 import json, os, signal
+from subprocess import call
+
 
 
 app = Flask(__name__)
@@ -61,6 +63,12 @@ def create():
 def stopServer():
     os.kill(os.getpid(), signal.SIGINT)
     return jsonify({ "success": True, "message": "Server is shutting down..." })
+
+@app.route('/gitPull', methods=['GET'])
+def gitPull():
+    os.chmod('./gitpull.sh', 0o755)
+    rc = call("./gitpull.sh")
+    return jsonify({ "success": True, "message": "Pulled from Git" })
 
 if __name__ == '__main__':
     app.run(debug=True)
